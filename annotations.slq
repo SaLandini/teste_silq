@@ -23,4 +23,38 @@ def captureQuantum(x:𝔹){
 
 //qfree
 
+// Usamos o qfree pra indicar que as funções ou expressões não introduz ou destroi 'superpositions'.
+// A anotação qfree (i) garante que a avaliação de funções qfree em argumentos clássicos produz resultados clássicos e 
+// (ii) permite a descomputação automática.
 
+def myEvalqfree(f:𝔹→qfree 𝔹)qfree{
+  return f(true);
+}
+
+// mfree
+
+// A anotação de mfree indica que o funcionamento pode ser avaliada sem aplicar nenhuma medida
+
+def myEvalmfree(f:𝔹→mfree 𝔹)mfree{
+  return f(false);
+}
+
+
+// const
+
+// A anotação const indica que tal variavel não vai mudar no contexto dado.
+// Assim, cada parametro de uma função e cada variavél no contexto deve ser anotada sendo const
+// Podemos usar parametros contanstes e variaveis mais 'liberally' deste que garantimos a percistencia do contexto
+
+def myEvalconst(const x:𝔹, f: const 𝔹!→𝔹) {
+  return f(x)
+}
+
+//lifted 
+
+// a lifted é 'shorthand' para indicar funções qfree com apenas argumentos constante
+// argumentos classicos são implicitamente tratados como constantes
+
+def myOr(x:𝔹, y:!𝔹)lifted{
+  return x||y;
+}
