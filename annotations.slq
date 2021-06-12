@@ -1,0 +1,26 @@
+// silq suports annotations, !, qfree, mfree, const, and lifted
+
+
+//Para indicar que o tipo de t deve ter valor classicos, e não 'superpositions', a gente anota como !t.
+
+// A função pega dois argumentos x (boolean classico) e f
+
+def classicalExample(x:!𝔹,f:!𝔹!→!𝔹){
+  return f(x);             //  ^ f is classical
+}
+
+// Não classico
+// Ela ilustra uma função não clasica. é retorna a função que 'which captures the quantum variable x'.
+// Entretanto, o estado que é pego está na 'superposition', significando que não podemos pegar sendo classico
+
+def captureQuantum(x:𝔹){
+  captured := λ(). { // function `captured` takes no arguments
+    return H(x); // the body of function `captured` applies `H` to `x`
+  };
+  return captured:𝟙→𝔹;
+                // ^ the returned function is not classical
+}
+
+//qfree
+
+
