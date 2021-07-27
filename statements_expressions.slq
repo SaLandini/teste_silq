@@ -1,0 +1,72 @@
+
+
+// control flow
+
+// if e {...} else {...}
+
+// Classical control flow
+
+def measureInBasis(b:!𝔹,x:𝔹):!𝔹{
+    if b{
+        x:= H(x);
+        return measure(x);
+    } else {
+        return measure(x);
+    }
+}
+
+// Quantum control flow
+
+// esse exemplo muda y condicionado em x
+
+def cnot(const x:𝔹, y:𝔹):𝔹{
+    if x{
+        y:= X(y);
+    }
+    return y;
+}
+
+// nos Quantum control flow, Silq impoes algumas restrições.
+
+//def conditionalMensure[n:!ℕ](const b:𝔹, x:uint[n]):𝟙{
+//    if b{
+//        x:=measure(x);
+//    }
+//}
+
+
+// Loops
+
+// while e {...}
+// e tem que ser classico
+
+def geometric():ℕ{
+    count := 0;
+    ok := true;
+    while ok {
+        count += 1;
+        ok = measure(H(false));
+    }
+    return count;
+}
+
+// Assignments
+
+// for i in [e1..e2]{...}
+// for i in (e1..e2){...}
+
+def uniformSuperposition[n:!ℕ]():𝔹^n{
+    vec := vector(n,0:𝔹);
+    for i in [0..n){
+        vec[i] := H(vec[i]);
+    }
+    return vec
+}
+
+
+// Indexing
+
+def main(){
+    x:= [0,1,2,3];
+    return x[3];
+}

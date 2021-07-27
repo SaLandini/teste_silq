@@ -1,0 +1,64 @@
+// Type annotation
+
+// permite uma reinterpretação do tipo de uma expressão se
+// não for necessária uma conversão no runtime
+
+// cria uma representação do 0 em diferentes tipos
+def zeroes(){
+    a:=0:!𝔹; // classico bit no estado zero
+    b:=a:𝔹; // quantum bit no estado zero
+    c:=0:uint[3]; // quantum 3-bit integer não 'unsigned'
+    d:=vector(4,false):𝔹[]; // quantum 4-bit vector
+    return (a,b,c,d);
+}
+
+// Por definição, valores constantes são considerados clasicos
+// Para criar um quantum constant. O Silq requer um tipo explicito de anotação
+
+def plusState():𝔹{
+    x := false: 𝔹;
+    x := H(x);
+    return x;
+}
+
+// escrevendo x:=false no lugar de x:=false𝔹 no plusState
+// resulta num x sendo clasico, significando que não ser pro H(x).
+
+// Safe type conversion
+
+// Safe type conversion (as) permite mudar o tipo de uma expressão convertendo 
+// valores na excusão de um tipo pro outro. Eles são permitido se as conversões forem
+// seguras
+
+def safe_convertion(){
+    //!int[32] para !ℤ
+    a:=0:!int[32];
+    b:=a as !ℤ;
+
+    // !ℤ para !int[32]
+    c:=0:!ℤ;
+    d:=c as !int[32];
+
+    // 𝔹^10 para int[10]
+    e:=vector(10,0:𝔹);
+    f:=e as int[10];
+
+    //int[10] para 𝔹^10
+    g:=0:int[10];
+    h:=g as 𝔹^10;
+
+    // convertendo element-wise
+    i:=(0,1,2):!ℕ^3;
+    j:=i as !ℕ×!ℤ×!int[3];
+}
+
+// Type coersion
+
+// type coersion é uma alternativa não segura para type casts,
+// que é necessário sempre que a transformação de tipo pode lançar uma exceção de tempo de execução.
+
+def unsafe_conversions(){
+    //coerce array to vector
+    a:=array(4,true):𝔹[];
+    b:=a coerce 𝔹^4
+}
